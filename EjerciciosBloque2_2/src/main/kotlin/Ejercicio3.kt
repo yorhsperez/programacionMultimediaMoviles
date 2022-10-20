@@ -5,7 +5,7 @@ fun main() {
     while (true) {
 
 
-        println(random)
+       // println(random)
         println("Adivina el numero: ")
         var numero = readLine()!!.toInt()
 
@@ -26,3 +26,4 @@ fun main() {
     }
 
 }
+
