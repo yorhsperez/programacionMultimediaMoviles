@@ -14,6 +14,7 @@ class Persona {
         this.nombre = nombre
         this.edad = edad
         this.sexo = sexo
+
     }
 
     constructor(nombre: String, edad: Int, sexo: Char, peso: Double, altura: Double) {
@@ -24,20 +25,31 @@ class Persona {
         this.altura = altura
     }
 
+    //calcular IMC.
+    fun calcularIMC(): Int {
 
+        val imc = peso / (altura * altura)
+        return when {
+            imc < 20 -> -1
+            imc >= 20 && imc <= 25 -> 0
+            else -> 1
+        }
+
+    }
 
     fun esMayorEdad(): Boolean {
         return edad >= 18
     }
 
-   //Metodo comprobar sexo con parametro char
-    private fun comprobarSexo(sexo: Char) {
-        if (sexo != 'H' || sexo != 'M') {
-            this.sexo= 'H'
+   //Metodo comprobar sexo
+    fun comprobarSexo(sexo: Char): Char {
+        return if (sexo == 'H' || sexo == 'M') {
+            sexo
         } else {
-            this.sexo = sexo
+            'H'
         }
     }
+
 
     //Metodo geneara numero aleatorio de 8 cifras y genera la letra del DNI
     private fun generarDNI(): String {
@@ -48,8 +60,9 @@ class Persona {
             index = (Math.random() * numeros.length - 1).toInt()
             clave += numeros[index]
         }
-        print("" + clave + "-" + calcularLetraDNI(clave.toInt()))
-        return "" + clave + "-" + calcularLetraDNI(clave.toInt())
+
+        DNI= "" + clave + "-" + calcularLetraDNI(clave.toInt())
+        return DNI
     }
     private fun calcularLetraDNI(num: Int): Char {
         val letras = charArrayOf('T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V',
@@ -60,7 +73,7 @@ class Persona {
 
 
     override fun toString(): String {
-        return "Persona(nombre='$nombre', edad=$edad, DNI='$DNI', sexo=$sexo, peso=$peso, altura=$altura)"
+        return "Persona(nombre='$nombre', edad=$edad, DNI='${generarDNI()}, sexo=${comprobarSexo(sexo)}, peso=$peso, altura=$altura)"
     }
 
 
